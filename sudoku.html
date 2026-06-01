@@ -318,7 +318,7 @@
     <div class="setting-row">
       <label>Tema claro</label>
       <label class="toggle">
-        <input type="checkbox" id="opt-light" onchange="applySettings()">
+        <input type="checkbox" id="opt-light" checked onchange="applySettings()">
         <span class="toggle-slider"></span>
       </label>
     </div>
@@ -326,7 +326,7 @@
     <div class="setting-row">
       <label>Assinalar erros</label>
       <label class="toggle">
-        <input type="checkbox" id="opt-errors" checked onchange="applySettings()">
+        <input type="checkbox" id="opt-errors" onchange="applySettings()">
         <span class="toggle-slider"></span>
       </label>
     </div>
@@ -350,7 +350,7 @@
 
 <div class="info-bar">
   <span>⏱ <span id="timer">00:00</span></span>
-  <span>Erros: <span class="mistakes" id="mistakes">0</span>/3</span>
+  <span id="mistakes-bar">Erros: <span class="mistakes" id="mistakes">0</span>/3</span>
   <span>Células: <span id="progress">0</span></span>
 </div>
 
@@ -370,8 +370,8 @@
 // ── Settings ─────────────────────────────────────────────────────────────────
 
 const settings = {
-  light: false,
-  showErrors: true
+  light: true,
+  showErrors: false
 };
 
 function openSettings()  { document.getElementById('settings-overlay').classList.add('open'); }
@@ -382,6 +382,7 @@ function applySettings() {
   settings.light      = document.getElementById('opt-light').checked;
   settings.showErrors = document.getElementById('opt-errors').checked;
   document.body.classList.toggle('light', settings.light);
+  document.getElementById('mistakes-bar').style.display = settings.showErrors ? '' : 'none';
   refreshCells();
 }
 
@@ -682,6 +683,7 @@ function buildNumpad() {
 // ── Init ──────────────────────────────────────────────────────────────────────
 
 buildNumpad();
+applySettings();
 newGame();
 </script>
 </body>
